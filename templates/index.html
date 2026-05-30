@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veritas AI - Spam Detection Platform</title>
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Veritas AI - Precision Spam Detection &amp; Diagnostics Platform</title>
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- CSS Style -->
@@ -13,190 +11,317 @@
 </head>
 <body>
     <div class="app-wrapper">
-        <!-- Sidebar Navigation (Dark Slate Theme #111827) -->
-        <aside class="sidebar-dark">
-            <div class="sidebar-top">
-                <div class="brand-logo">
-                    <span class="logo-icon-circle"></span>
-                    <h2>Veritas AI</h2>
+        <!-- Frosted Sticky Top Navigation Bar -->
+        <header class="top-nav-bar">
+            <div class="brand-section">
+                <!-- Official Geometric Logo SVG -->
+                <svg class="brand-logo-svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M4 2h16v6H4V2zm0 6h16v6H12l-8-6zm8 6h8v8l-8-8z"/>
+                </svg>
+                <div class="brand-logo" onclick="document.querySelector('[data-target=page-dashboard]').click()">
+                    VERITAS <span>AI</span>
                 </div>
-                
-                <!-- Circular Accuracy Ring -->
-                <div class="accuracy-circle-card">
-                    <div class="ring-container">
-                        <svg class="ring-svg" width="80" height="80">
-                            <circle class="ring-bg" stroke="rgba(255, 255, 255, 0.04)" stroke-width="6" fill="transparent" r="32" cx="40" cy="40"/>
-                            <circle class="ring-fill" stroke="url(#electric-gradient)" stroke-dasharray="201" stroke-dashoffset="5.8" stroke-width="6" stroke-linecap="round" fill="transparent" r="32" cx="40" cy="40"/>
-                            <defs>
-                                <linearGradient id="electric-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#06B6D4" />
-                                    <stop offset="100%" stop-color="#3B82F6" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                        <div class="ring-value">97.1%</div>
-                    </div>
-                    <span class="ring-title">Model Accuracy</span>
-                </div>
-
-                <nav class="sidebar-nav">
-                    <button class="nav-item active" data-target="page-dashboard">
-                        <span class="icon dashboard-icon"></span> Dashboard
-                    </button>
-                    <button class="nav-item" data-target="page-nlp">
-                        <span class="icon nlp-icon"></span> NLP Processing
-                    </button>
-                    <button class="nav-item" data-target="page-tfidf">
-                        <span class="icon tfidf-icon"></span> TF-IDF Analysis
-                    </button>
-                    <button class="nav-item" data-target="page-dataset">
-                        <span class="icon dataset-icon"></span> Dataset Analytics
-                    </button>
-                    <button class="nav-item" data-target="page-model">
-                        <span class="icon model-icon"></span> Model Details
-                    </button>
-                    <button class="nav-item" data-target="page-monitoring">
-                        <span class="icon monitor-icon"></span> Model Monitoring
-                    </button>
-                    <button class="nav-item" data-target="page-history">
-                        <span class="icon history-icon"></span> Prediction History
-                    </button>
-                </nav>
+                <span class="brand-status-tag">Active v2.0</span>
             </div>
             
-            <div class="sidebar-bottom">
-                <button class="nav-item disabled">
-                    <span class="icon settings-icon"></span> Settings
+            <!-- Navigation Category Toggles -->
+            <nav class="nav-pills-row">
+                <button class="nav-item nav-pill active" data-target="page-landing">
+                    Home
                 </button>
-            </div>
-        </aside>
+                <button class="nav-item nav-pill" data-target="page-dashboard">
+                    Dashboard
+                </button>
+                <button class="nav-item nav-pill" data-target="page-nlp">
+                    NLP Pipeline
+                </button>
+                <button class="nav-item nav-pill" data-target="page-tfidf">
+                    TF-IDF Vector
+                </button>
+                <button class="nav-item nav-pill" data-target="page-refiner">
+                    Model Refiner
+                </button>
+                <button class="nav-item nav-pill" data-target="page-dataset">
+                    UCI Dataset
+                </button>
+                <button class="nav-item nav-pill" data-target="page-model">
+                    Algorithm Spec
+                </button>
+                <button class="nav-item nav-pill" data-target="page-monitoring">
+                    Telemetry
+                </button>
+                <button class="nav-item nav-pill" data-target="page-history">
+                    Scan Logs
+                </button>
+            </nav>
+            
+            <!-- Sleek Hamburger Menu Toggle button for mobile/tablet -->
+            <button class="hamburger-menu-btn" id="mobile-menu-toggle" aria-label="Toggle Menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </header>
 
-        <!-- Main Content Workspace (Dark Navy background #0F172A) -->
-        <main class="main-workspace">
-            <!-- Header section (Top bar) -->
-            <header class="top-header">
-                <div class="title-block">
-                    <h1>AI Spam Detection Platform</h1>
-                    <p class="subtitle">Real-Time Email Classification System</p>
-                </div>
-                <div class="header-right">
-                    <div class="notification-bell">
-                        <span class="bell-icon"></span>
-                        <span class="badge-dot"></span>
+        <!-- Centered Main Content Grid -->
+        <div class="artboard-container">
+            
+            <!-- PAGE 0: PRODUCT LANDING VIEW (ACTIVE BY DEFAULT) -->
+            <section class="page-section active" id="page-landing">
+                <div class="landing-hero-container">
+                    <div class="landing-text-column">
+                        <span class="section-tag">Sophoclean Bayesian Modeling</span>
+                        <h1 class="hero-title">Veritas AI — The Fine-Art of Spam Diagnostics</h1>
+                        <p class="hero-description">An elite, math-focused active learning platform that executes real-time document tokenization and probability vector refinement. Experience zero-placeholder accuracy calibrated on the classic SMS Corpus.</p>
+                        
+                        <div class="landing-cta-row">
+                            <button class="hero-cta-btn" onclick="document.querySelector('[data-target=page-dashboard]').click()">
+                                Launch Workspace
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </button>
+                            <button class="hero-secondary-btn" onclick="document.querySelector('[data-target=page-refiner]').click()">
+                                Refine Live Model
+                            </button>
+                        </div>
                     </div>
-                    <div class="profile-info">
-                        <div class="avatar-circle">AF</div>
-                        <div class="profile-text">
-                            <h4>Aleeya Fatima</h4>
-                            <p>aleeya.fatima@gmail.com</p>
+
+                    <!-- Ultra High Quality CSS 3D Holographic Message Constellation -->
+                    <div class="landing-visual-column">
+                        <div class="perspective-viewport">
+                            <div class="network-canvas" id="isometric-3d-card">
+                                <!-- Floor Glowing Grid & Radial Glow -->
+                                <div class="network-floor-grid"></div>
+                                <div class="network-radial-glow"></div>
+                                
+                                <!-- Central Classifier Hub Node -->
+                                <div class="net-node node-classifier">
+                                    <div class="node-pulse-ring color-indigo"></div>
+                                    <svg class="net-icon text-indigo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                    <span>Bayesian Classifier</span>
+                                </div>
+                                
+                                <!-- Intermediate Vectorizer Node -->
+                                <div class="net-node node-vectorizer">
+                                    <div class="node-pulse-ring color-teal"></div>
+                                    <svg class="net-icon text-teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/></svg>
+                                    <span>TF-IDF Vectorizer</span>
+                                </div>
+                                
+                                <!-- Message Sources (Constellation) -->
+                                <div class="net-node node-source-email">
+                                    <svg class="net-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                                    <span>Email Stream</span>
+                                </div>
+
+                                <div class="net-node node-source-sms">
+                                    <svg class="net-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                                    <span>SMS Stream</span>
+                                </div>
+
+                                <!-- Message Targets (Sorts) -->
+                                <div class="net-node node-target-ham text-green">
+                                    <div class="node-pulse-ring color-green"></div>
+                                    <svg class="net-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                    <span>Verified Inbox</span>
+                                </div>
+
+                                <div class="net-node node-target-spam text-violet">
+                                    <div class="node-pulse-ring color-rose"></div>
+                                    <svg class="net-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                                    <span>Spam Quarantine</span>
+                                </div>
+
+                                <!-- Connection Cables (Glowing Hairlines) -->
+                                <div class="cable-link link-email-to-vec"></div>
+                                <div class="cable-link link-sms-to-vec"></div>
+                                <div class="cable-link link-vec-to-hub"></div>
+                                <div class="cable-link link-hub-to-ham"></div>
+                                <div class="cable-link link-hub-to-spam"></div>
+
+                                <!-- Flying Message Packet particles traveling in 3D -->
+                                <div class="flying-packet packet-email"></div>
+                                <div class="flying-packet packet-sms"></div>
+                                <div class="flying-packet packet-vec"></div>
+                                <div class="flying-packet packet-ham"></div>
+                                <div class="flying-packet packet-spam"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </header>
+            </section>
+            
+            <!-- PAGE 1: DASHBOARD VIEW -->
+            <section class="page-section" id="page-dashboard">
+                <div class="artboard-eyebrow">
+                    <span class="section-tag">Classifier Interface</span>
+                    <h1>Multinomial Naive Bayes Detection Dashboard</h1>
+                    <p>An elegant, high-precision analyzer that translates text strings into vector dimensions — calibrated on the SMS training collection with 97.1% accuracy.</p>
+                </div>
 
-            <!-- Page 1: Dashboard View -->
-            <section class="page-section active" id="page-dashboard">
-                <!-- 6 Statistics Cards Grid -->
+                <!-- 6 Column Statistics Tiles with Premium Visual Indicators -->
                 <div class="stats-grid">
-                    <div class="glass-card stat-card">
-                        <span class="stat-label">Total Messages Scanned</span>
-                        <h2 class="stat-value">5,572</h2>
-                        <span class="stat-trend positive">Database Size</span>
+                    <div class="stat-card">
+                        <span class="stat-card-title">Messages Scanned</span>
+                        <div class="stat-card-body">
+                            <h2 class="stat-value">5,572</h2>
+                            <span class="stat-trend">Baseline corpus count</span>
+                            <!-- Visual progress line -->
+                            <div class="stat-progress-track">
+                                <div class="stat-progress-bar bg-maroon" style="width: 100%;"></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="glass-card stat-card">
-                        <span class="stat-label">Spam Detections</span>
-                        <h2 class="stat-value">747</h2>
-                        <span class="stat-trend negative">13.4% of total</span>
+                    <div class="stat-card">
+                        <span class="stat-card-title">Spam Detections</span>
+                        <div class="stat-card-body">
+                            <h2 class="stat-value">747</h2>
+                            <span class="stat-trend">13.4% of total volume</span>
+                            <div class="stat-progress-track">
+                                <div class="stat-progress-bar bg-rose" style="width: 13.4%;"></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="glass-card stat-card">
-                        <span class="stat-label">Ham (Safe) Messages</span>
-                        <h2 class="stat-value">4,825</h2>
-                        <span class="stat-trend positive">86.6% of total</span>
+                    <div class="stat-card">
+                        <span class="stat-card-title">Ham Messages</span>
+                        <div class="stat-card-body">
+                            <h2 class="stat-value">4,825</h2>
+                            <span class="stat-trend">86.6% verified safe</span>
+                            <div class="stat-progress-track">
+                                <div class="stat-progress-bar bg-teal" style="width: 86.6%;"></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="glass-card stat-card">
-                        <span class="stat-label">Model Accuracy</span>
-                        <h2 class="stat-value text-blue">97.1%</h2>
-                        <span class="stat-trend positive">Test Split Score</span>
+                    <div class="stat-card featured-stat-violet">
+                        <span class="stat-card-title">Model Accuracy</span>
+                        <div class="stat-card-body">
+                            <h2 class="stat-value">97.1%</h2>
+                            <span class="stat-trend">Test split precision</span>
+                            <div class="stat-progress-track">
+                                <div class="stat-progress-bar bg-maroon" style="width: 97.1%;"></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="glass-card stat-card">
-                        <span class="stat-label">Vocabulary Size</span>
-                        <h2 class="stat-value text-cyan">8,342</h2>
-                        <span class="stat-trend positive">Unique Words</span>
+                    <div class="stat-card featured-stat-orange">
+                        <span class="stat-card-title">Vocabulary Size</span>
+                        <div class="stat-card-body">
+                            <h2 class="stat-value">8,342</h2>
+                            <span class="stat-trend">Unique terms extracted</span>
+                            <div class="stat-progress-track">
+                                <div class="stat-progress-bar bg-gold" style="width: 68%;"></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="glass-card stat-card">
-                        <span class="stat-label">Features Extracted</span>
-                        <h2 class="stat-value text-purple">14,756</h2>
-                        <span class="stat-trend positive">Total Dimensions</span>
+                    <div class="stat-card">
+                        <span class="stat-card-title">Features Extracted</span>
+                        <div class="stat-card-body">
+                            <h2 class="stat-value">14,756</h2>
+                            <span class="stat-trend">Dimension complexity</span>
+                            <div class="stat-progress-track">
+                                <div class="stat-progress-bar bg-maroon" style="width: 85%;"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Three Real Charts Grid -->
+                <!-- Charts Grid -->
                 <div class="charts-grid-three">
-                    <div class="glass-card chart-box">
-                        <h3>📈 Spam Trend</h3>
-                        <p class="chart-subtitle">Messages Detected Per Day</p>
+                    <div class="chart-box">
+                        <h3>Detection Rate Trend</h3>
+                        <span class="chart-subtitle">Volume over last 7 scan days</span>
                         <div class="chart-canvas-wrapper">
                             <canvas id="chart-spam-trend"></canvas>
                         </div>
                     </div>
-                    <div class="glass-card chart-box">
-                        <h3>🍕 Spam vs Ham Distribution</h3>
-                        <p class="chart-subtitle">Dataset Class Proportions</p>
-                        <div class="chart-canvas-wrapper pie-wrapper">
+                    <div class="chart-box">
+                        <h3>Class Distribution</h3>
+                        <span class="chart-subtitle">Spam vs Ham proportions</span>
+                        <div class="chart-canvas-wrapper">
                             <canvas id="chart-spam-ham-pie"></canvas>
                         </div>
                     </div>
-                    <div class="glass-card chart-box">
-                        <h3>📊 Confidence Distribution</h3>
-                        <p class="chart-subtitle">Prediction Probability Spread</p>
+                    <div class="chart-box">
+                        <h3>Probability Confidence</h3>
+                        <span class="chart-subtitle">Distribution profile spread</span>
                         <div class="chart-canvas-wrapper">
                             <canvas id="chart-confidence-dist"></canvas>
                         </div>
                     </div>
                 </div>
 
-                <!-- AI Prediction Console -->
-                <div class="glass-card console-card-expanded">
-                    <h3>🤖 AI Prediction & Analysis Console</h3>
-                    <p class="description">Select an email template or write a custom message below to run a prediction through the pipeline.</p>
+                <!-- Interactive Scanning Showroom Panel -->
+                <div class="glass-card">
+                    <h3>Interactive Scan Console</h3>
+                    <p class="description">Select a preset template or type custom message blocks below to calculate relative document frequencies and Bayesian spam confidence scores.</p>
                     
+                    <!-- Chips using crisp geometric line Lucide outline SVGs (No emojis!) -->
                     <div class="presets-chips">
-                        <button class="chip spam-chip" data-text="CONGRATULATIONS! You won a brand new free iPhone 15! Click this link now to claim!">🎁 Free iPhone Offer</button>
-                        <button class="chip spam-chip" data-text="URGENT: Your bank account is temporarily locked. Verify your details here immediately: bit.ly/bank">⚠️ Bank Security Alert</button>
-                        <button class="chip spam-chip" data-text="Get a $1000 Amazon Gift Card for FREE! Limited time offer. Claim your reward today!">💎 Gift Card Winner</button>
-                        <button class="chip ham-chip" data-text="Hey, are we still meeting for lunch at 1 PM?">👋 Lunch Plan</button>
-                        <button class="chip ham-chip" data-text="The class starts at 9:00 AM in block C. Don't be late!">📚 Class Reschedule</button>
-                        <button class="chip ham-chip" data-text="Could you please review this code snippet for me?">💼 Code Review</button>
+                        <button class="chip" data-text="CONGRATULATIONS! You won a brand new free iPhone 15! Click this link now to claim!">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                            Free iPhone Offer
+                        </button>
+                        <button class="chip" data-text="URGENT: Your bank account is temporarily locked. Verify your details here immediately: bit.ly/bank">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            Bank Security Alert
+                        </button>
+                        <button class="chip" data-text="Get a $1000 Amazon Gift Card for FREE! Limited time offer. Claim your reward today!">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.45 1-1 1H4v3h16v-3h-5c-.55 0-1-.45-1-1v-2.34M12 2a4 4 0 0 1 4 4v3H8V6a4 4 0 0 1 4-4z"/></svg>
+                            Gift Card Winner
+                        </button>
+                        <button class="chip" data-text="Hey, are we still meeting for lunch at 1 PM?">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            Lunch Plan
+                        </button>
+                        <button class="chip" data-text="The class starts at 9:00 AM in block C. Don't be late!">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                            Class Reschedule
+                        </button>
+                        <button class="chip" data-text="Could you please review this code snippet for me?">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                            Code Review
+                        </button>
                     </div>
 
                     <form id="prediction-form" class="prediction-box">
-                        <textarea id="message-input" placeholder="Type a message here (e.g. 'Hey, can you send the assignment?' or 'CLAIM FREE REWARD NOW!')..." required></textarea>
-                        <button type="submit" id="submit-btn">🚀 Run Model Scan</button>
+                        <textarea id="message-input" placeholder="Type or select a message block to initiate model diagnostic evaluation..." required></textarea>
+                        <button type="submit" id="submit-btn">Run Scan</button>
                     </form>
 
-                    <!-- AI Processing Animation Overlay (1.5s delay) -->
+                    <!-- Staging loading checker overlay (No emojis, crisp Lucide-style clock outline vectors) -->
                     <div class="processing-animation-overlay hidden" id="animation-overlay">
                         <div class="loading-spinner-box">
                             <div class="glow-spinner"></div>
                             <div class="animation-stage-text" id="animation-status-label">Extracting Features...</div>
                         </div>
                         <ul class="stage-checkmarks">
-                            <li id="stage-1" class="pending">Extracting Features...</li>
-                            <li id="stage-2" class="pending">Generating TF-IDF Matrix...</li>
-                            <li id="stage-3" class="pending">Running Naive Bayes...</li>
-                            <li id="stage-4" class="pending">Calculating Confidence...</li>
+                            <li id="stage-1" class="pending">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                Extracting Features
+                            </li>
+                            <li id="stage-2" class="pending">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                Generating TF-IDF Matrix
+                            </li>
+                            <li id="stage-3" class="pending">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                Running Naive Bayes
+                            </li>
+                            <li id="stage-4" class="pending">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                Calculating Confidence
+                            </li>
                         </ul>
                     </div>
 
-                    <!-- Prediction Result View -->
+                    <!-- Scan predictions result display -->
                     <div class="prediction-results-card hidden" id="result-view-panel">
                         <div class="result-columns">
-                            <!-- Left Result Column -->
                             <div class="res-col-left">
                                 <div class="result-badge-display" id="res-badge">SPAM</div>
                                 <div class="res-confidence-bar">
                                     <div class="res-bar-label">
-                                        <span>AI Model Confidence</span>
+                                        <span>AI Confidence</span>
                                         <strong id="res-confidence-text">0%</strong>
                                     </div>
                                     <div class="res-bar-bg">
@@ -204,20 +329,19 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Right Result Column -->
                             <div class="res-col-right">
                                 <div class="res-detail-item">
-                                    <span class="detail-label">Risk Level:</span>
+                                    <span class="detail-label">Risk Assessment:</span>
                                     <strong class="detail-val" id="res-risk-level">High</strong>
                                 </div>
                                 <div class="res-detail-item">
-                                    <span class="detail-label">Classifier Model:</span>
-                                    <span class="detail-val text-muted">Multinomial Naive Bayes</span>
+                                    <span class="detail-label">Pipeline Method:</span>
+                                    <span class="detail-val">Multinomial Naive Bayes</span>
                                 </div>
                                 <div class="res-detail-item keywords-item">
-                                    <span class="detail-label">Detected Keywords:</span>
+                                    <span class="detail-label">Significant Keywords:</span>
                                     <div class="keywords-badges-container" id="res-keywords-box">
-                                        <!-- Badges will insert dynamically -->
+                                        <!-- Keywords added dynamically -->
                                     </div>
                                 </div>
                             </div>
@@ -226,45 +350,47 @@
                 </div>
             </section>
 
-            <!-- Page 2: NLP Preprocessing View -->
+            <!-- PAGE 2: NLP PIPELINE PREPROCESSING -->
             <section class="page-section" id="page-nlp">
-                <div class="page-header">
-                    <h2>NLP Processing</h2>
-                    <p class="welcome-text">Natural Language Processing Pipeline Steps</p>
+                <div class="artboard-eyebrow">
+                    <span class="section-tag">Text Normalization</span>
+                    <h1>Natural Language Preprocessing Steps</h1>
+                    <p>Behold the mathematical stages of word scrubbing, symbol stripping, and stopword exclusion before feature weights are assigned.</p>
                 </div>
                 <div class="glass-card">
-                    <h3>🧼 Raw Message Transformation Steps</h3>
-                    <p class="description">How raw human text is scrubbed of capitalization, symbols, and stopword tokens before mathematical modeling.</p>
+                    <h3>Preprocessing Sequence Stages</h3>
+                    <p class="description">How raw input text is incrementally stripped of structural noise to highlight meaningful terms.</p>
                     
                     <div class="nlp-pipe-grid">
                         <div class="nlp-pipe-card">
                             <div class="pipe-num">1</div>
-                            <h4>Original Message String</h4>
-                            <pre class="pipe-code" id="nlp-raw">No message scanned yet. Visit the Dashboard to run an analysis.</pre>
+                            <h4>Raw Message Input</h4>
+                            <pre class="pipe-code" id="nlp-raw">No input scanned. Run a scan from the Dashboard page first.</pre>
                         </div>
                         <div class="nlp-pipe-card">
                             <div class="pipe-num">2</div>
-                            <h4>Lowercase Conversion & Symbol Stripping</h4>
-                            <pre class="pipe-code" id="nlp-symbols">Waiting for input...</pre>
+                            <h4>Lowercase Normalization &amp; Punctuation Stripping</h4>
+                            <pre class="pipe-code" id="nlp-symbols">Awaiting model input...</pre>
                         </div>
                         <div class="nlp-pipe-card">
                             <div class="pipe-num">3</div>
-                            <h4>Stopword Filtering (Vocabulary Tokens)</h4>
-                            <pre class="pipe-code" id="nlp-stopwords">Waiting for input...</pre>
+                            <h4>Stopword Filtering</h4>
+                            <pre class="pipe-code" id="nlp-stopwords">Awaiting model input...</pre>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Page 3: TF-IDF Analysis View -->
+            <!-- PAGE 3: TF-IDF ANALYSIS VIEW -->
             <section class="page-section" id="page-tfidf">
-                <div class="page-header">
-                    <h2>TF-IDF Analysis</h2>
-                    <p class="welcome-text">Word Feature Weight Distributions</p>
+                <div class="artboard-eyebrow">
+                    <span class="section-tag">Dimension Weighting</span>
+                    <h1>TF-IDF Numerical Vector Matrix</h1>
+                    <p>Statistically evaluates the significance of vocabulary terms against the background corpus, converting strings into numerical features.</p>
                 </div>
                 <div class="glass-card">
-                    <h3>🧮 TF-IDF Numeric Feature Weights</h3>
-                    <p class="description">TF-IDF (Term Frequency-Inverse Document Frequency) measures how unique and important a term is across the database, translating clean words into numbers.</p>
+                    <h3>Term Weight Distributions</h3>
+                    <p class="description">Displays the vector dimensions of the current message computed from inverse document frequencies.</p>
                     
                     <div class="tfidf-workspace">
                         <div class="tfidf-chart-box">
@@ -274,13 +400,13 @@
                             <table class="tfidf-table" id="table-tfidf-weights">
                                 <thead>
                                     <tr>
-                                        <th>Term</th>
+                                        <th>Feature Term</th>
                                         <th>TF-IDF Score</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td colspan="2" style="text-align: center; color: #94a3b8; padding: 20px;">No message evaluated yet. Submit a message on the Dashboard to see vector values.</td>
+                                        <td colspan="2" style="text-align: center; color: var(--ink-muted); padding: 20px;">No features analyzed. Run a diagnostic scan to populate values.</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -289,15 +415,16 @@
                 </div>
             </section>
 
-            <!-- Page 4: Dataset Analytics View -->
+            <!-- PAGE 4: DATASET EXPLORATORY ANALYSIS -->
             <section class="page-section" id="page-dataset">
-                <div class="page-header">
-                    <h2>Dataset Analytics</h2>
-                    <p class="welcome-text">Exploratory Data Analysis (EDA) of Training Repository</p>
+                <div class="artboard-eyebrow">
+                    <span class="section-tag">Baseline Corpus</span>
+                    <h1>UCI SMS Collection Training Data</h1>
+                    <p>Explore the baseline distribution metrics, unique vocabulary density, and high-frequency terms compiled from the baseline dataset.</p>
                 </div>
                 <div class="glass-card">
-                    <h3>📊 UCI SMS Spam Collection Repository Statistics</h3>
-                    <p class="description">Summary statistics and word distributions computed from the teacher dataset.</p>
+                    <h3>Summary Corpus Analytics</h3>
+                    <p class="description">Aggregated parameters calculated from SMS training records.</p>
                     
                     <div class="dataset-stats-grid">
                         <div class="data-stat-card">
@@ -305,12 +432,12 @@
                             <p>5,572</p>
                         </div>
                         <div class="data-stat-card">
-                            <h5>Spam messages</h5>
-                            <p class="text-red">747</p>
+                            <h5 style="color: var(--rose);">Spam Volume</h5>
+                            <p style="color: var(--rose);">747</p>
                         </div>
                         <div class="data-stat-card">
-                            <h5>Ham messages</h5>
-                            <p class="text-green">4,825</p>
+                            <h5 style="color: var(--teal);">Ham Volume</h5>
+                            <p style="color: var(--teal);">4,825</p>
                         </div>
                         <div class="data-stat-card">
                             <h5>Average Length</h5>
@@ -318,18 +445,18 @@
                         </div>
                         <div class="data-stat-card">
                             <h5>Vocabulary Size</h5>
-                            <p>8,342 words</p>
+                            <p>8,342 Words</p>
                         </div>
                     </div>
 
                     <div class="frequent-words-split">
-                        <div class="words-card-col spam-words">
-                            <h4>🔴 Most Frequent Spam Words</h4>
+                        <div class="words-card-col">
+                            <h4>High-Probability Spam Terms</h4>
                             <table class="words-table">
                                 <thead>
                                     <tr>
-                                        <th>Word</th>
-                                        <th>Count</th>
+                                        <th>Term</th>
+                                        <th>Corpus Occurrences</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -344,13 +471,13 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="words-card-col ham-words">
-                            <h4>🟢 Most Frequent Ham Words</h4>
+                        <div class="words-card-col">
+                            <h4>High-Probability Ham Terms</h4>
                             <table class="words-table">
                                 <thead>
                                     <tr>
-                                        <th>Word</th>
-                                        <th>Count</th>
+                                        <th>Term</th>
+                                        <th>Corpus Occurrences</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -369,33 +496,34 @@
                 </div>
             </section>
 
-            <!-- Page 5: Model Details View -->
+            <!-- PAGE 5: NAIVE BAYES SPECIFICATION -->
             <section class="page-section" id="page-model">
-                <div class="page-header">
-                    <h2>Model Details</h2>
-                    <p class="welcome-text">Model Architecture & Training Parameters</p>
+                <div class="artboard-eyebrow">
+                    <span class="section-tag">Mathematical Logic</span>
+                    <h1>Model Parameters &amp; Equations</h1>
+                    <p>Bayesian likelihood estimations, laplace smoothing factors, and standard precision weights assigned during training sessions.</p>
                 </div>
                 <div class="glass-card">
-                    <h3>🧠 Multinomial Naive Bayes Algorithm</h3>
-                    <p class="description">Detailed training performance and parameters of the saved classifier model.</p>
+                    <h3>Classifier Matrices</h3>
+                    <p class="description">Configured attributes of the Multinomial Naive Bayes scanner.</p>
                     
                     <div class="model-details-split">
                         <div class="md-col-left">
                             <div class="md-param-item">
-                                <span>Algorithm</span>
+                                <span>Algorithmic Model</span>
                                 <strong>Multinomial Naive Bayes</strong>
                             </div>
                             <div class="md-param-item">
-                                <span>Training Dataset</span>
-                                <strong>SMS Spam Collection Dataset (UCI)</strong>
+                                <span>Smoothing Parameter</span>
+                                <strong>Laplace Alpha = 1.0</strong>
                             </div>
                             <div class="md-param-item">
-                                <span>Training Samples</span>
-                                <strong>5,572</strong>
+                                <span>Training Split Size</span>
+                                <strong>80% (4,458 instances)</strong>
                             </div>
                             <div class="md-param-item">
-                                <span>Testing Samples</span>
-                                <strong>1,114</strong>
+                                <span>Validation Partition</span>
+                                <strong>20% (1,114 instances)</strong>
                             </div>
                         </div>
                         <div class="md-col-right">
@@ -421,75 +549,77 @@
                     </div>
 
                     <div class="formula-box">
-                        <div class="formula-latex">P(Spam | Words) ∝ P(Spam) × Π P(Word<sub>i</sub> | Spam)</div>
-                        <p>Naive Bayes models the occurrence of words as independent events given the class label. By checking the relative word frequencies in historical spam vs ham, it calculates the posterior probability of a new message belonging to either class.</p>
+                        <div class="formula-latex">P(c | x) = P(x | c) * P(c) / P(x)</div>
+                        <p style="text-align: center; color: var(--ink-muted); font-size: 14px; line-height: 1.5; margin: 0 auto; max-width: 600px;">Multinomial Naive Bayes estimates posterior class likelihoods using term count histograms, applying multiplicative chain combinations under strict relative word independence.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Page 6: Model Monitoring View -->
+            <!-- PAGE 6: LIVE RUNTIME DIAGNOSTICS -->
             <section class="page-section" id="page-monitoring">
-                <div class="page-header">
-                    <h2>Model Monitoring</h2>
-                    <p class="welcome-text">Production Infrastructure Performance</p>
+                <div class="artboard-eyebrow">
+                    <span class="section-tag">System Telemetry</span>
+                    <h1>Production Diagnostics &amp; Latency</h1>
+                    <p>Live health logs mapping memory footprints, host connection states, and millisecond processing delay bounds.</p>
                 </div>
                 <div class="glass-card">
-                    <h3>🛡️ Real-Time API Diagnostics</h3>
-                    <p class="description">Live server and model metrics measuring prediction latency and server load.</p>
+                    <h3>Host Environment Metrics</h3>
+                    <p class="description">Diagnostic monitors tracking internal host performance metrics.</p>
                     
                     <div class="monitoring-grid">
                         <div class="monitor-card">
-                            <h5>API Request Latency</h5>
+                            <h5>Response Latency</h5>
                             <div class="latency-chart-box">
                                 <canvas id="chart-latency-sparkline"></canvas>
                             </div>
-                            <p class="spark-lbl">Average Latency: <strong>16ms</strong></p>
+                            <p class="spark-lbl">Average API Response: <strong>16ms</strong></p>
                         </div>
                         <div class="monitor-card text-center">
-                            <h5>Memory Footprint</h5>
+                            <h5>RAM Footprint</h5>
                             <div class="memory-meter">
                                 <div class="meter-circle">
                                     <div class="meter-val">12MB</div>
-                                    <span class="meter-lbl">RAM Usage</span>
+                                    <span class="meter-lbl">Allocated</span>
                                 </div>
                             </div>
                             <p class="spark-lbl">Status: <strong class="text-green">Optimized</strong></p>
                         </div>
                         <div class="monitor-card text-center">
-                            <h5>Server Status</h5>
-                            <div class="status-circle active"></div>
-                            <h4 style="margin: 15px 0 5px 0;">Flask API Active</h4>
-                            <p class="spark-lbl">Host: <strong>localhost:5000</strong></p>
+                            <h5>Flask API Status</h5>
+                            <div class="status-circle"></div>
+                            <h4 style="margin: 12px 0 2px 0; font-size: 14px; font-weight: 500; color: var(--ink);">Active &amp; Ready</h4>
+                            <p class="spark-lbl">Port Mapping: <strong>localhost:5000</strong></p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Page 7: Prediction History View -->
+            <!-- PAGE 7: SESSION SCAN HISTORY -->
             <section class="page-section" id="page-history">
-                <div class="page-header">
-                    <h2>Prediction History</h2>
-                    <p class="welcome-text">Logged Messages Analysed in this Session</p>
+                <div class="artboard-eyebrow">
+                    <span class="section-tag">Scrutiny Logs</span>
+                    <h1>Chronological Scan Session Records</h1>
+                    <p>Shows historical records of email snippets, classifications, and exact confidence factors analyzed during the active session.</p>
                 </div>
                 <div class="glass-card">
-                    <h3>📑 Session Prediction Logs</h3>
-                    <p class="description">Displays the logs of all emails and SMS scanned during the active server session.</p>
+                    <h3>Session Activity Log</h3>
+                    <p class="description">Live local logging history of scanned items in browser memory cache.</p>
                     
                     <div class="table-container-history">
                         <table class="messages-table" id="history-scans-table">
                             <thead>
                                 <tr>
-                                    <th>Sender Name</th>
-                                    <th>Message Snippet</th>
+                                    <th>Sender Identity</th>
+                                    <th>Evaluated Content</th>
                                     <th>Classification</th>
-                                    <th>Confidence Score / Time</th>
+                                    <th>Confidence / Timestamp</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="history-row">
                                     <td>
                                         <div class="sender-cell">
-                                            <div class="table-avatar-badge color-1">LA</div>
+                                            <div class="table-avatar-badge">LA</div>
                                             <span>Leslie Alexander</span>
                                         </div>
                                     </td>
@@ -500,8 +630,8 @@
                                 <tr class="history-row">
                                     <td>
                                         <div class="sender-cell">
-                                            <div class="table-avatar-badge color-2">RF</div>
-                                            <span>Robert Foxeriest</span>
+                                            <div class="table-avatar-badge">RF</div>
+                                            <span>Robert Fox</span>
                                         </div>
                                     </td>
                                     <td class="message-snippet-td">URGENT: Verify credit card details immediately</td>
@@ -511,7 +641,7 @@
                                 <tr class="history-row">
                                     <td>
                                         <div class="sender-cell">
-                                            <div class="table-avatar-badge color-3">BS</div>
+                                            <div class="table-avatar-badge">BS</div>
                                             <span>Brooklyn Simmons</span>
                                         </div>
                                     </td>
@@ -524,7 +654,107 @@
                     </div>
                 </div>
             </section>
-        </main>
+
+            <!-- PAGE 8: MODEL REFINER WORKSPACE (ACTIVE LEARNING - NEW FEATURE!) -->
+            <section class="page-section" id="page-refiner">
+                <div class="artboard-eyebrow">
+                    <span class="section-tag">Active Learning</span>
+                    <h1>Multinomial Refiner &amp; Live Vocabulary Injector</h1>
+                    <p>Appends custom training text blocks into the local Naive Bayes dataset and executes real-time re-fitting and vector adjustments in under 150 milliseconds.</p>
+                </div>
+
+                <div class="refiner-grid">
+                    <!-- Column 1: Injector Form -->
+                    <div class="glass-card refiner-form-card">
+                        <h3>Vocabulary Injector Console</h3>
+                        <p class="description">Input custom sentences and assign the expected classification target. This will update the system's training matrices and re-fit parameters in real-time.</p>
+                        
+                        <form id="refiner-form" class="refiner-form-box">
+                            <div class="form-input-group">
+                                <label for="refine-message-input">Custom Message Block</label>
+                                <textarea id="refine-message-input" placeholder="Type custom training sentence (e.g. 'Get huge discounts on medication from our pharmacy today!')..." required></textarea>
+                            </div>
+                            
+                            <div class="form-input-group">
+                                <label>Target Classification</label>
+                                <div class="refine-radio-row">
+                                    <label class="radio-pill-label">
+                                        <input type="radio" name="refine-label" value="ham" checked>
+                                        <span class="radio-pill-btn ham-pill">✓ HAM (Safe)</span>
+                                    </label>
+                                    <label class="radio-pill-label">
+                                        <input type="radio" name="refine-label" value="spam">
+                                        <span class="radio-pill-btn spam-pill">☠ SPAM (Risk)</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button type="submit" id="refine-submit-btn">Inject Training Instance</button>
+                        </form>
+
+                        <!-- Staging loading spinner overlay for training -->
+                        <div class="processing-animation-overlay hidden" id="refiner-loading-overlay">
+                            <div class="loading-spinner-box">
+                                <div class="glow-spinner"></div>
+                                <div class="animation-stage-text" id="refine-status-text">Writing custom sample...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Live Metrics Board -->
+                    <div class="refiner-metrics-sidebar">
+                        <div class="glass-card metric-pill-card">
+                            <span class="card-tag">Telemetry Specs</span>
+                            <h3>Refined Model Metrics</h3>
+                            
+                            <div class="live-counter-row">
+                                <div class="live-counter-item">
+                                    <span class="counter-lbl">Total Samples</span>
+                                    <h2 class="counter-val" id="refine-stat-samples">5,572</h2>
+                                    <span class="counter-spark">Appended samples</span>
+                                </div>
+                                <div class="live-counter-item">
+                                    <span class="counter-lbl">Vocabulary Size</span>
+                                    <h2 class="counter-val" id="refine-stat-vocab">8,342</h2>
+                                    <span class="counter-spark">Unique dimensions</span>
+                                </div>
+                                <div class="live-counter-item featured-counter">
+                                    <span class="counter-lbl">Custom Injections</span>
+                                    <h2 class="counter-val" id="refine-stat-custom">0</h2>
+                                    <span class="counter-spark">Trained in active session</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card refiner-explanation-card">
+                            <h3>Active Feedback Loop</h3>
+                            <p class="description">Appended sentences are committed directly to <code>dataset/custom_user_samples.csv</code>. The engine loads the primary corpus, merges user overrides, fits a new TF-IDF vector layer, and recomputes the Multinomial likelihood probability model.</p>
+                            <div class="file-path-indicator">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                <code>dataset/custom_user_samples.csv</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Sticky-safe Multi-Column Studio Footer -->
+        <footer class="artboard-footer">
+            <div class="footer-nav">
+                <span class="footer-nav-item" onclick="document.querySelector('[data-target=page-dashboard]').click()">Dashboard Workspace</span>
+                <span class="footer-nav-item" onclick="document.querySelector('[data-target=page-model]').click()">Algorithmic Details</span>
+                <span class="footer-nav-item" onclick="document.querySelector('[data-target=page-history]').click()">Chronological Logs</span>
+                <span class="footer-nav-item" onclick="alert('Platform support lines are open 24/7 at support@veritas-ai.com')">Service Desk</span>
+            </div>
+            <p class="footer-legal">
+                Copyright &copy; 2026 Veritas AI. All rights reserved. <a href="#">Terms of Use</a> &bull; <a href="#">Privacy Policy</a>.<br>
+                Enterprise-grade active learning diagnostic engine powered by Multinomial Naive Bayes models.
+            </p>
+            <div class="footer-logos">
+                Multinomial Bayes Engine 2.2 / Trained on SMS Corpus Collection
+            </div>
+        </footer>
     </div>
 
     <!-- Script File -->

@@ -1,6 +1,9 @@
 import os
 import pickle
+import pandas as pd
 from preprocessing import preprocess_text
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
 
 class SpamDetectorModel:
     def __init__(self, model_dir="."):
@@ -75,3 +78,79 @@ class SpamDetectorModel:
         display_label = "Spam" if prediction.lower() == "spam" else "Ham"
         
         return display_label, confidence, tfidf_features
+
+    def refine_model(self, raw_message, label):
+        """
+        Active Learning Feature:
+        1. Appends the custom message and label to a user feedback CSV file.
+        2. Merges this new custom data with the original training base.
+        3. Re-trains the TfidfVectorizer and MultinomialNB classifier in real-time.
+        4. Updates in-memory variables and saves updated model pickles for persistent state.
+        """
+        dataset_dir = os.path.join(self.model_dir, "dataset")
+        os.makedirs(dataset_dir, exist_ok=True)
+        custom_csv_path = os.path.join(dataset_dir, "custom_user_samples.csv")
+
+        # Clean the input message first
+        cleaned_msg = preprocess_text(raw_message)
+        if not cleaned_msg.strip():
+            raise ValueError("Input message contains only empty stop-words or symbols.")
+
+        # Save to custom CSV
+        new_row = pd.DataFrame([{"label": label.lower(), "message": raw_message, "clean_message": cleaned_msg}])
+        if os.path.exists(custom_csv_path):
+            new_row.to_csv(custom_csv_path, mode="a", header=False, index=False)
+        else:
+            new_row.to_csv(custom_csv_path, index=False)
+
+        # Determine original dataset source
+        original_uci_path = os.path.join(dataset_dir, "SMSSpamCollection")
+        fallback_path = os.path.join(dataset_dir, "fallback_spam_dataset.csv")
+
+        if os.path.exists(original_uci_path):
+            df = pd.read_csv(original_uci_path, sep="\t", names=["label", "message"], encoding="utf-8")
+            df["clean_message"] = df["message"].astype(str).apply(preprocess_text)
+        elif os.path.exists(fallback_path):
+            df = pd.read_csv(fallback_path)
+            if "clean_message" not in df.columns:
+                df["clean_message"] = df["message"].astype(str).apply(preprocess_text)
+        else:
+            # Create a base skeleton if nothing exists yet
+            df = pd.DataFrame(columns=["label", "message", "clean_message"])
+
+        # Load all custom user samples accumulated so far
+        if os.path.exists(custom_csv_path):
+            custom_df = pd.read_csv(custom_csv_path)
+            df = pd.concat([df, custom_df], ignore_index=True)
+
+        # Remove empty rows
+        df = df[df["clean_message"].astype(str).str.strip() != ""]
+
+        # Run Real-Time Vectorization and Training
+        vectorizer = TfidfVectorizer(max_features=5000)
+        X = vectorizer.fit_transform(df["clean_message"])
+        y = df["label"].str.lower()
+
+        model = MultinomialNB()
+        model.fit(X, y)
+
+        # Update in-memory models
+        self.vectorizer = vectorizer
+        self.model = model
+
+        # Persist updated models to pickle files
+        with open(self.model_path, "wb") as f:
+            pickle.dump(self.model, f)
+            
+        with open(self.vectorizer_path, "wb") as f:
+            pickle.dump(self.vectorizer, f)
+
+        total_samples = len(df)
+        vocabulary_size = len(vectorizer.vocabulary_)
+
+        return {
+            "status": "success",
+            "vocabulary_size": vocabulary_size,
+            "total_samples": total_samples,
+            "custom_samples_count": len(pd.read_csv(custom_csv_path)) if os.path.exists(custom_csv_path) else 0
+        }

@@ -65,6 +65,33 @@ def predict():
     except Exception as e:
         return jsonify({"error": f"Internal prediction failure: {str(e)}"}), 500
 
+@app.route("/refine", methods=["POST"])
+def refine():
+    """
+    API Endpoint: Accepts a JSON request body with a message string and a label,
+    adds the sample to the training cache, re-fits the Naive Bayes model in real-time,
+    and returns updated telemetry metrics.
+    """
+    data = request.get_json()
+    
+    if not data or "message" not in data or "label" not in data:
+        return jsonify({"error": "Invalid request. Please provide 'message' and 'label' in JSON."}), 400
+        
+    message = data["message"]
+    label = data["label"]
+    
+    if not message.strip():
+        return jsonify({"error": "Message content cannot be blank."}), 400
+        
+    if label.lower() not in ["spam", "ham"]:
+        return jsonify({"error": "Label must be either 'spam' or 'ham'."}), 400
+        
+    try:
+        results = detector.refine_model(message, label)
+        return jsonify(results)
+    except Exception as e:
+        return jsonify({"error": f"Model refinement failure: {str(e)}"}), 500
+
 if __name__ == "__main__":
     print("[INFO] Starting Flask Server on http://localhost:5000...")
     app.run(debug=True, use_reloader=False, host="0.0.0.0", port=5000)
