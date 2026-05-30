@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veritas AI - Spam Detection Platform</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- CSS Style -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="app-wrapper">
+        <!-- Sidebar Navigation (Dark Slate Theme #111827) -->
+        <aside class="sidebar-dark">
+            <div class="sidebar-top">
+                <div class="brand-logo">
+                    <span class="logo-icon-circle"></span>
+                    <h2>Veritas AI</h2>
+                </div>
+                
+                <!-- Circular Accuracy Ring -->
+                <div class="accuracy-circle-card">
+                    <div class="ring-container">
+                        <svg class="ring-svg" width="80" height="80">
+                            <circle class="ring-bg" stroke="rgba(255, 255, 255, 0.04)" stroke-width="6" fill="transparent" r="32" cx="40" cy="40"/>
+                            <circle class="ring-fill" stroke="url(#electric-gradient)" stroke-dasharray="201" stroke-dashoffset="5.8" stroke-width="6" stroke-linecap="round" fill="transparent" r="32" cx="40" cy="40"/>
+                            <defs>
+                                <linearGradient id="electric-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#06B6D4" />
+                                    <stop offset="100%" stop-color="#3B82F6" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <div class="ring-value">97.1%</div>
+                    </div>
+                    <span class="ring-title">Model Accuracy</span>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <button class="nav-item active" data-target="page-dashboard">
+                        <span class="icon dashboard-icon"></span> Dashboard
+                    </button>
+                    <button class="nav-item" data-target="page-nlp">
+                        <span class="icon nlp-icon"></span> NLP Processing
+                    </button>
+                    <button class="nav-item" data-target="page-tfidf">
+                        <span class="icon tfidf-icon"></span> TF-IDF Analysis
+                    </button>
+                    <button class="nav-item" data-target="page-dataset">
+                        <span class="icon dataset-icon"></span> Dataset Analytics
+                    </button>
+                    <button class="nav-item" data-target="page-model">
+                        <span class="icon model-icon"></span> Model Details
+                    </button>
+                    <button class="nav-item" data-target="page-monitoring">
+                        <span class="icon monitor-icon"></span> Model Monitoring
+                    </button>
+                    <button class="nav-item" data-target="page-history">
+                        <span class="icon history-icon"></span> Prediction History
+                    </button>
+                </nav>
+            </div>
+            
+            <div class="sidebar-bottom">
+                <button class="nav-item disabled">
+                    <span class="icon settings-icon"></span> Settings
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Workspace (Dark Navy background #0F172A) -->
+        <main class="main-workspace">
+            <!-- Header section (Top bar) -->
+            <header class="top-header">
+                <div class="title-block">
+                    <h1>AI Spam Detection Platform</h1>
+                    <p class="subtitle">Real-Time Email Classification System</p>
+                </div>
+                <div class="header-right">
+                    <div class="notification-bell">
+                        <span class="bell-icon"></span>
+                        <span class="badge-dot"></span>
+                    </div>
+                    <div class="profile-info">
+                        <div class="avatar-circle">AF</div>
+                        <div class="profile-text">
+                            <h4>Aleeya Fatima</h4>
+                            <p>aleeya.fatima@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page 1: Dashboard View -->
+            <section class="page-section active" id="page-dashboard">
+                <!-- 6 Statistics Cards Grid -->
+                <div class="stats-grid">
+                    <div class="glass-card stat-card">
+                        <span class="stat-label">Total Messages Scanned</span>
+                        <h2 class="stat-value">5,572</h2>
+                        <span class="stat-trend positive">Database Size</span>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <span class="stat-label">Spam Detections</span>
+                        <h2 class="stat-value">747</h2>
+                        <span class="stat-trend negative">13.4% of total</span>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <span class="stat-label">Ham (Safe) Messages</span>
+                        <h2 class="stat-value">4,825</h2>
+                        <span class="stat-trend positive">86.6% of total</span>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <span class="stat-label">Model Accuracy</span>
+                        <h2 class="stat-value text-blue">97.1%</h2>
+                        <span class="stat-trend positive">Test Split Score</span>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <span class="stat-label">Vocabulary Size</span>
+                        <h2 class="stat-value text-cyan">8,342</h2>
+                        <span class="stat-trend positive">Unique Words</span>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <span class="stat-label">Features Extracted</span>
+                        <h2 class="stat-value text-purple">14,756</h2>
+                        <span class="stat-trend positive">Total Dimensions</span>
+                    </div>
+                </div>
+
+                <!-- Three Real Charts Grid -->
+                <div class="charts-grid-three">
+                    <div class="glass-card chart-box">
+                        <h3>📈 Spam Trend</h3>
+                        <p class="chart-subtitle">Messages Detected Per Day</p>
+                        <div class="chart-canvas-wrapper">
+                            <canvas id="chart-spam-trend"></canvas>
+                        </div>
+                    </div>
+                    <div class="glass-card chart-box">
+                        <h3>🍕 Spam vs Ham Distribution</h3>
+                        <p class="chart-subtitle">Dataset Class Proportions</p>
+                        <div class="chart-canvas-wrapper pie-wrapper">
+                            <canvas id="chart-spam-ham-pie"></canvas>
+                        </div>
+                    </div>
+                    <div class="glass-card chart-box">
+                        <h3>📊 Confidence Distribution</h3>
+                        <p class="chart-subtitle">Prediction Probability Spread</p>
+                        <div class="chart-canvas-wrapper">
+                            <canvas id="chart-confidence-dist"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Prediction Console -->
+                <div class="glass-card console-card-expanded">
+                    <h3>🤖 AI Prediction & Analysis Console</h3>
+                    <p class="description">Select an email template or write a custom message below to run a prediction through the pipeline.</p>
+                    
+                    <div class="presets-chips">
+                        <button class="chip spam-chip" data-text="CONGRATULATIONS! You won a brand new free iPhone 15! Click this link now to claim!">🎁 Free iPhone Offer</button>
+                        <button class="chip spam-chip" data-text="URGENT: Your bank account is temporarily locked. Verify your details here immediately: bit.ly/bank">⚠️ Bank Security Alert</button>
+                        <button class="chip spam-chip" data-text="Get a $1000 Amazon Gift Card for FREE! Limited time offer. Claim your reward today!">💎 Gift Card Winner</button>
+                        <button class="chip ham-chip" data-text="Hey, are we still meeting for lunch at 1 PM?">👋 Lunch Plan</button>
+                        <button class="chip ham-chip" data-text="The class starts at 9:00 AM in block C. Don't be late!">📚 Class Reschedule</button>
+                        <button class="chip ham-chip" data-text="Could you please review this code snippet for me?">💼 Code Review</button>
+                    </div>
+
+                    <form id="prediction-form" class="prediction-box">
+                        <textarea id="message-input" placeholder="Type a message here (e.g. 'Hey, can you send the assignment?' or 'CLAIM FREE REWARD NOW!')..." required></textarea>
+                        <button type="submit" id="submit-btn">🚀 Run Model Scan</button>
+                    </form>
+
+                    <!-- AI Processing Animation Overlay (1.5s delay) -->
+                    <div class="processing-animation-overlay hidden" id="animation-overlay">
+                        <div class="loading-spinner-box">
+                            <div class="glow-spinner"></div>
+                            <div class="animation-stage-text" id="animation-status-label">Extracting Features...</div>
+                        </div>
+                        <ul class="stage-checkmarks">
+                            <li id="stage-1" class="pending">Extracting Features...</li>
+                            <li id="stage-2" class="pending">Generating TF-IDF Matrix...</li>
+                            <li id="stage-3" class="pending">Running Naive Bayes...</li>
+                            <li id="stage-4" class="pending">Calculating Confidence...</li>
+                        </ul>
+                    </div>
+
+                    <!-- Prediction Result View -->
+                    <div class="prediction-results-card hidden" id="result-view-panel">
+                        <div class="result-columns">
+                            <!-- Left Result Column -->
+                            <div class="res-col-left">
+                                <div class="result-badge-display" id="res-badge">SPAM</div>
+                                <div class="res-confidence-bar">
+                                    <div class="res-bar-label">
+                                        <span>AI Model Confidence</span>
+                                        <strong id="res-confidence-text">0%</strong>
+                                    </div>
+                                    <div class="res-bar-bg">
+                                        <div class="res-bar-fill" id="res-bar-fill"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Right Result Column -->
+                            <div class="res-col-right">
+                                <div class="res-detail-item">
+                                    <span class="detail-label">Risk Level:</span>
+                                    <strong class="detail-val" id="res-risk-level">High</strong>
+                                </div>
+                                <div class="res-detail-item">
+                                    <span class="detail-label">Classifier Model:</span>
+                                    <span class="detail-val text-muted">Multinomial Naive Bayes</span>
+                                </div>
+                                <div class="res-detail-item keywords-item">
+                                    <span class="detail-label">Detected Keywords:</span>
+                                    <div class="keywords-badges-container" id="res-keywords-box">
+                                        <!-- Badges will insert dynamically -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Page 2: NLP Preprocessing View -->
+            <section class="page-section" id="page-nlp">
+                <div class="page-header">
+                    <h2>NLP Processing</h2>
+                    <p class="welcome-text">Natural Language Processing Pipeline Steps</p>
+                </div>
+                <div class="glass-card">
+                    <h3>🧼 Raw Message Transformation Steps</h3>
+                    <p class="description">How raw human text is scrubbed of capitalization, symbols, and stopword tokens before mathematical modeling.</p>
+                    
+                    <div class="nlp-pipe-grid">
+                        <div class="nlp-pipe-card">
+                            <div class="pipe-num">1</div>
+                            <h4>Original Message String</h4>
+                            <pre class="pipe-code" id="nlp-raw">No message scanned yet. Visit the Dashboard to run an analysis.</pre>
+                        </div>
+                        <div class="nlp-pipe-card">
+                            <div class="pipe-num">2</div>
+                            <h4>Lowercase Conversion & Symbol Stripping</h4>
+                            <pre class="pipe-code" id="nlp-symbols">Waiting for input...</pre>
+                        </div>
+                        <div class="nlp-pipe-card">
+                            <div class="pipe-num">3</div>
+                            <h4>Stopword Filtering (Vocabulary Tokens)</h4>
+                            <pre class="pipe-code" id="nlp-stopwords">Waiting for input...</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Page 3: TF-IDF Analysis View -->
+            <section class="page-section" id="page-tfidf">
+                <div class="page-header">
+                    <h2>TF-IDF Analysis</h2>
+                    <p class="welcome-text">Word Feature Weight Distributions</p>
+                </div>
+                <div class="glass-card">
+                    <h3>🧮 TF-IDF Numeric Feature Weights</h3>
+                    <p class="description">TF-IDF (Term Frequency-Inverse Document Frequency) measures how unique and important a term is across the database, translating clean words into numbers.</p>
+                    
+                    <div class="tfidf-workspace">
+                        <div class="tfidf-chart-box">
+                            <canvas id="chart-tfidf-words"></canvas>
+                        </div>
+                        <div class="tfidf-table-box">
+                            <table class="tfidf-table" id="table-tfidf-weights">
+                                <thead>
+                                    <tr>
+                                        <th>Term</th>
+                                        <th>TF-IDF Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2" style="text-align: center; color: #94a3b8; padding: 20px;">No message evaluated yet. Submit a message on the Dashboard to see vector values.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Page 4: Dataset Analytics View -->
+            <section class="page-section" id="page-dataset">
+                <div class="page-header">
+                    <h2>Dataset Analytics</h2>
+                    <p class="welcome-text">Exploratory Data Analysis (EDA) of Training Repository</p>
+                </div>
+                <div class="glass-card">
+                    <h3>📊 UCI SMS Spam Collection Repository Statistics</h3>
+                    <p class="description">Summary statistics and word distributions computed from the teacher dataset.</p>
+                    
+                    <div class="dataset-stats-grid">
+                        <div class="data-stat-card">
+                            <h5>Total Messages</h5>
+                            <p>5,572</p>
+                        </div>
+                        <div class="data-stat-card">
+                            <h5>Spam messages</h5>
+                            <p class="text-red">747</p>
+                        </div>
+                        <div class="data-stat-card">
+                            <h5>Ham messages</h5>
+                            <p class="text-green">4,825</p>
+                        </div>
+                        <div class="data-stat-card">
+                            <h5>Average Length</h5>
+                            <p>80.4 Chars</p>
+                        </div>
+                        <div class="data-stat-card">
+                            <h5>Vocabulary Size</h5>
+                            <p>8,342 words</p>
+                        </div>
+                    </div>
+
+                    <div class="frequent-words-split">
+                        <div class="words-card-col spam-words">
+                            <h4>🔴 Most Frequent Spam Words</h4>
+                            <table class="words-table">
+                                <thead>
+                                    <tr>
+                                        <th>Word</th>
+                                        <th>Count</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td><strong>free</strong></td><td>216</td></tr>
+                                    <tr><td><strong>txt</strong></td><td>152</td></tr>
+                                    <tr><td><strong>ur</strong></td><td>144</td></tr>
+                                    <tr><td><strong>mobile</strong></td><td>123</td></tr>
+                                    <tr><td><strong>claim</strong></td><td>113</td></tr>
+                                    <tr><td><strong>stop</strong></td><td>113</td></tr>
+                                    <tr><td><strong>reply</strong></td><td>101</td></tr>
+                                    <tr><td><strong>prize</strong></td><td>92</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="words-card-col ham-words">
+                            <h4>🟢 Most Frequent Ham Words</h4>
+                            <table class="words-table">
+                                <thead>
+                                    <tr>
+                                        <th>Word</th>
+                                        <th>Count</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td><strong>u</strong></td><td>972</td></tr>
+                                    <tr><td><strong>gt</strong></td><td>318</td></tr>
+                                    <tr><td><strong>lt</strong></td><td>316</td></tr>
+                                    <tr><td><strong>get</strong></td><td>303</td></tr>
+                                    <tr><td><strong>go</strong></td><td>250</td></tr>
+                                    <tr><td><strong>ok</strong></td><td>272</td></tr>
+                                    <tr><td><strong>ur</strong></td><td>240</td></tr>
+                                    <tr><td><strong>home</strong></td><td>161</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Page 5: Model Details View -->
+            <section class="page-section" id="page-model">
+                <div class="page-header">
+                    <h2>Model Details</h2>
+                    <p class="welcome-text">Model Architecture & Training Parameters</p>
+                </div>
+                <div class="glass-card">
+                    <h3>🧠 Multinomial Naive Bayes Algorithm</h3>
+                    <p class="description">Detailed training performance and parameters of the saved classifier model.</p>
+                    
+                    <div class="model-details-split">
+                        <div class="md-col-left">
+                            <div class="md-param-item">
+                                <span>Algorithm</span>
+                                <strong>Multinomial Naive Bayes</strong>
+                            </div>
+                            <div class="md-param-item">
+                                <span>Training Dataset</span>
+                                <strong>SMS Spam Collection Dataset (UCI)</strong>
+                            </div>
+                            <div class="md-param-item">
+                                <span>Training Samples</span>
+                                <strong>5,572</strong>
+                            </div>
+                            <div class="md-param-item">
+                                <span>Testing Samples</span>
+                                <strong>1,114</strong>
+                            </div>
+                        </div>
+                        <div class="md-col-right">
+                            <div class="score-row">
+                                <div class="score-circle">
+                                    <div class="score-val">97.1%</div>
+                                    <span class="score-lbl">Accuracy</span>
+                                </div>
+                                <div class="score-circle">
+                                    <div class="score-val">96%</div>
+                                    <span class="score-lbl">Precision</span>
+                                </div>
+                                <div class="score-circle">
+                                    <div class="score-val">95%</div>
+                                    <span class="score-lbl">Recall</span>
+                                </div>
+                                <div class="score-circle">
+                                    <div class="score-val">95.5%</div>
+                                    <span class="score-lbl">F1 Score</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="formula-box">
+                        <div class="formula-latex">P(Spam | Words) ∝ P(Spam) × Π P(Word<sub>i</sub> | Spam)</div>
+                        <p>Naive Bayes models the occurrence of words as independent events given the class label. By checking the relative word frequencies in historical spam vs ham, it calculates the posterior probability of a new message belonging to either class.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Page 6: Model Monitoring View -->
+            <section class="page-section" id="page-monitoring">
+                <div class="page-header">
+                    <h2>Model Monitoring</h2>
+                    <p class="welcome-text">Production Infrastructure Performance</p>
+                </div>
+                <div class="glass-card">
+                    <h3>🛡️ Real-Time API Diagnostics</h3>
+                    <p class="description">Live server and model metrics measuring prediction latency and server load.</p>
+                    
+                    <div class="monitoring-grid">
+                        <div class="monitor-card">
+                            <h5>API Request Latency</h5>
+                            <div class="latency-chart-box">
+                                <canvas id="chart-latency-sparkline"></canvas>
+                            </div>
+                            <p class="spark-lbl">Average Latency: <strong>16ms</strong></p>
+                        </div>
+                        <div class="monitor-card text-center">
+                            <h5>Memory Footprint</h5>
+                            <div class="memory-meter">
+                                <div class="meter-circle">
+                                    <div class="meter-val">12MB</div>
+                                    <span class="meter-lbl">RAM Usage</span>
+                                </div>
+                            </div>
+                            <p class="spark-lbl">Status: <strong class="text-green">Optimized</strong></p>
+                        </div>
+                        <div class="monitor-card text-center">
+                            <h5>Server Status</h5>
+                            <div class="status-circle active"></div>
+                            <h4 style="margin: 15px 0 5px 0;">Flask API Active</h4>
+                            <p class="spark-lbl">Host: <strong>localhost:5000</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Page 7: Prediction History View -->
+            <section class="page-section" id="page-history">
+                <div class="page-header">
+                    <h2>Prediction History</h2>
+                    <p class="welcome-text">Logged Messages Analysed in this Session</p>
+                </div>
+                <div class="glass-card">
+                    <h3>📑 Session Prediction Logs</h3>
+                    <p class="description">Displays the logs of all emails and SMS scanned during the active server session.</p>
+                    
+                    <div class="table-container-history">
+                        <table class="messages-table" id="history-scans-table">
+                            <thead>
+                                <tr>
+                                    <th>Sender Name</th>
+                                    <th>Message Snippet</th>
+                                    <th>Classification</th>
+                                    <th>Confidence Score / Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="history-row">
+                                    <td>
+                                        <div class="sender-cell">
+                                            <div class="table-avatar-badge color-1">LA</div>
+                                            <span>Leslie Alexander</span>
+                                        </div>
+                                    </td>
+                                    <td class="message-snippet-td">How can I return package</td>
+                                    <td><span class="status-badge ham">HAM</span></td>
+                                    <td class="time-td">12.45pm (99%)</td>
+                                </tr>
+                                <tr class="history-row">
+                                    <td>
+                                        <div class="sender-cell">
+                                            <div class="table-avatar-badge color-2">RF</div>
+                                            <span>Robert Foxeriest</span>
+                                        </div>
+                                    </td>
+                                    <td class="message-snippet-td">URGENT: Verify credit card details immediately</td>
+                                    <td><span class="status-badge spam">SPAM</span></td>
+                                    <td class="time-td">3.45pm (92%)</td>
+                                </tr>
+                                <tr class="history-row">
+                                    <td>
+                                        <div class="sender-cell">
+                                            <div class="table-avatar-badge color-3">BS</div>
+                                            <span>Brooklyn Simmons</span>
+                                        </div>
+                                    </td>
+                                    <td class="message-snippet-td">Claim your discount code now! Click here</td>
+                                    <td><span class="status-badge spam">SPAM</span></td>
+                                    <td class="time-td">Yesterday (98%)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Script File -->
+    <script src="/static/script.js"></script>
+</body>
+</html>
